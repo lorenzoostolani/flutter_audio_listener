@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 void main() {
   runApp(const ListenAudio());
@@ -29,6 +30,8 @@ class Listenerhomepage extends StatefulWidget {
 }
 
 class _ListenerhomepageState extends State<Listenerhomepage> {
+  FilePickerResult? result; //variable
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +48,35 @@ class _ListenerhomepageState extends State<Listenerhomepage> {
               height: 300,
             ),
             const Text('Scegli un vocale'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: playAudio,
+                  icon: const Icon(Icons.play_arrow),
+                  iconSize: 100,
+                ),
+                ElevatedButton(
+                  onPressed: playbackRate,
+                  child: const Text('x1'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: pickfile,
+        child: const Icon(Icons.audio_file),
+      ),
     );
   }
+
+  void pickfile() async {
+    result = await FilePicker.platform.pickFiles();
+  }
+
+  void playAudio() {}
+
+  void playbackRate() {}
 }
